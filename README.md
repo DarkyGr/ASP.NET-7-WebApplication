@@ -1,4 +1,4 @@
-# Web Application Login & Registration (ASP.NET Core 7)
+# Web Application Login & Register (ASP.NET Core 7)
 
 This Web Application was made with:
 - ASP.NET Core 7
