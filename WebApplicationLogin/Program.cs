@@ -27,6 +27,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 
+// Clear Cache (Avoid returning once you log out)
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(
+            new ResponseCacheAttribute { 
+                NoStore = true,
+                Location = ResponseCacheLocation.None,
+            }
+        );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
