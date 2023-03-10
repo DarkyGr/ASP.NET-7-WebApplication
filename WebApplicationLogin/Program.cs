@@ -3,6 +3,9 @@ using WebApplicationLogin.Models;
 using WebApplicationLogin.Services.Contract;
 using WebApplicationLogin.Services.Implementation;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +19,14 @@ builder.Services.AddDbContext<DbWebapplication01Context>(options => {
 // Add classes from our services folder
 builder.Services.AddScoped<IUserService, UserService>();
 
+// Cookie Configuration
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(Options =>
+    {
+        Options.LoginPath = "/Start/Singin";
+        Options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,10 +38,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add Authentication
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Start}/{action=Singin}/{id?}");
 
 app.Run();
