@@ -12,11 +12,12 @@ using WebApplicationLogin.Services.Contract;
 
 namespace WebApplicationLogin.Controllers
 {
-    public class HomeController1 : Controller
+    public class StartController : Controller
     {
         private readonly IUserService _userService;
 
-        public HomeController1(IUserService userService) {
+        public StartController(IUserService userService)
+        {
             _userService = userService;
         }
 
@@ -34,14 +35,14 @@ namespace WebApplicationLogin.Controllers
 
             if (regUser.UId > 0)
             {
-                return RedirectToAction("Singin", "Home");    
+                return RedirectToAction("Singin", "Start");
             }
 
             ViewData["Message"] = "Couldn't create user";   // Share information with the view
 
             return View();
         }
-        
+
         public IActionResult Singin()
         {
             return View();
@@ -59,12 +60,13 @@ namespace WebApplicationLogin.Controllers
             }
 
             // If the user does exist
-            List<Claim> claims = new List<Claim>() { 
+            List<Claim> claims = new List<Claim>() {
                 new Claim(ClaimTypes.Name, getUser.UName)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme); // Register structure
-            AuthenticationProperties properties = new AuthenticationProperties() { 
+            AuthenticationProperties properties = new AuthenticationProperties()
+            {
                 AllowRefresh = true,
             };   // Create properties
 
