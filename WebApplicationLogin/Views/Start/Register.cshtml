@@ -1,0 +1,57 @@
+﻿@model WebApplicationLogin.Models.User;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container mt-5 pt-5">
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-12 col-me-6">
+                
+                <div class="card">
+                    <div class="card-header">
+                        Register
+                    </div>
+                    <div class="card-body">
+
+                        <form asp-controller="Start" asp-action="Register" method="post">
+
+                            <input class="form-control mb-3" type="text" placeholder="Full Name" asp-for="UName" required/>
+                            <input class="form-control mb-3" type="text" placeholder="Email" asp-for="UEmail" required/>
+                            <input class="form-control mb-3" type="password" placeholder="Password" asp-for="UKey" required/>
+
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-primary" type="submit">Register</button>
+                            </div>
+
+                            @if (ViewData["Message"] != null){
+                                <div class="form-group">
+                                    <div class="alert alert-danger" role="alert">
+                                        @ViewData["Message"]
+                                    </div>
+                                </div>
+                            }
+
+                            Do you already have an account? <a href="@Url.Action("Singin", "Start")"> Sing In</a>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
