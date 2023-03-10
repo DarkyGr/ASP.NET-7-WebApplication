@@ -15,10 +15,10 @@ namespace WebApplicationLogin.Services.Implementation
 
         public async Task<User> GetUser(string email, string key)
         {
-            User user = await _dbContext.Users.Where(u => u.UEmail == email && u.UKey == key)
+            User getUser = await _dbContext.Users.Where(u => u.UEmail == email && u.UKey == key)
                 .FirstOrDefaultAsync();
 
-            return user;
+            return getUser;
         }
 
         public async Task<User> SaveUser(User model)
