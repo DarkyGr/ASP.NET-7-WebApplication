@@ -1,15 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplicationLogin.Models;
+using WebApplicationLogin.Services.Contract;
+using WebApplicationLogin.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Configuration of database context
+// Database context configuration
 builder.Services.AddDbContext<DbWebapplication01Context>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLString"));
 });
+
+// Add classes from our services folder
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
